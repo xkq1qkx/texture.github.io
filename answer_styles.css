@@ -22,10 +22,10 @@ h1, h2 {
 
 #writer-intro p, #writer-articles p {
     margin-bottom: 15px;
-    color=red
+    color:green;
 }
 
 #writer-famous li {
     margin-bottom: 10px;
-    color=green
+    color:black;
 }
