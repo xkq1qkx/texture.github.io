@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const submittedid = urlParams.get('id');
+        const acc_ans = urlParams.get('acc');
 
         const response = await fetch('./writerdata.json');
         if (!response.ok) {
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         const writer = data[Number(submittedid)]; // Assuming data is an array with one writer
 
         // Populate writer name
-        document.getElementById("writer-name").textContent = writer.name;
+        document.getElementById("writer-name").textContent = writer.name+acc_ans;
 
         // Populate writer introduction
         const introContainer = document.getElementById("writer-intro");
