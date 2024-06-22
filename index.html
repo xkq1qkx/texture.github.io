@@ -149,9 +149,9 @@
     //const use = require('./bert-text-similarity/node_modules/@tensorflow-models/universal-sentence-encoder');
     async function getAverageEmbedding(articles) {
         const model = await use.load();
-        const embeddings = await model.embed(articles);
-        const meanEmbedding = embeddings.mean(0);
-        return tf.tensor(meanEmbedding.arraySync());
+        const embeddings = await model.embed([articles]);
+        //const meanEmbedding = embeddings.mean(0);
+        return embeddings;
     }
 
     function cosineSimilarity(tensorA, tensorB) {
