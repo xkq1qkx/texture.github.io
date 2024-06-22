@@ -190,7 +190,7 @@
             ans[i] = similar;
         }
         const maxIndex = ans.indexOf(Math.max(...ans));
-        window.location.href = `result2.html?id=${maxIndex}`;
+        window.location.href = `result2.html?id=${maxIndex}&acc=${ans[Number(maxIndex)]}`;
     }
 
     document.getElementById('analyzeForm').addEventListener('submit',handlesubmit)// {
