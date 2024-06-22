@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文风测评网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .starry-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+        .meteor {
+            position: absolute;
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+            animation: meteor 1.0s cubic-bezier(0.4, 0.1, 0.9,0.9 ) infinite;
+        }
+        @keyframes meteor {
+            from {
+                transform: translate(0, 0) rotate(205deg);
+                animation-timing-function: ease-in;
+            }
+            to {
+                transform: translate(800px, 400px) rotate(205deg);
+                animation-timing-function: ease-out;
+            }
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0); /* Darker background for better contrast */
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff; /* White text color for better readability */
+        }
+        .result-box {
+            background-color: rgba(185, 69, 69, 0.8); /* Slightly transparent white background */
+            z-index: 1;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            color: #ffffff; /* Black text color */
+        }
+        .submit-btn {
+            background-color: #003975;
+            color: #fff;
+        }
+        h1.artistic {
+            font-family: 'Pacifico', cursive;
+            font-size: 3em; /* 字体大小，可以根据需要调整 */
+            color: #ffffff; /* 字体颜色，可以根据需要调整 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 文本阴影效果 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="starry-background" id="starryBackground"></div>
+
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="artistic">文风测评网站</h1>
+        <p>输入大作，看看与哪位作家最像</p>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form id="analyzeForm">
+                <div class="mb-3">
+                    <label for="inputText" class="form-label">输入文本</label>
+                    <textarea class="form-control" id="inputText" rows="5" placeholder="在此输入文本..."></textarea>
+                </div>
+                <button type="submit" class="btn submit-btn">提交</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div id="resultBox" class="result-box d-none">
+                <h2>分析结果</h2>
+                <p id="analysisResult"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function createStars() {
+        const starryBackground = document.getElementById('starryBackground');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            starryBackground.appendChild(star);
+        }
+    }
+
+    function createMeteors() {
+        const starryBackground = document.getElementById('starryBackground');
+        for (let i = 0; i < 4; i++) {
+            setTimeout(() => {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                meteor.style.top = Math.random() * 90 + '%';
+                meteor.style.left = Math.random() * 90 + '%';
+                starryBackground.appendChild(meteor);
+
+                // Remove the meteor after animation ends
+                setTimeout(() => {
+                    meteor.remove();
+                }, 3000);
+            }, Math.random() * 5000);
+        }
+    }
+
+    document.getElementById('analyzeForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const text = document.getElementById('inputText').value;
+
+    // 发送请求到服务器
+    //const response = await fetch('/api/analyze', {
+        //method: 'POST',
+        //headers: {
+            //'Content-Type': 'application/json'
+        //},
+        //body: JSON.stringify({ text: text })
+    //});
+
+    // 处理服务器的响应
+    //const result = await response.json();
+
+    // 在页面中显示“收到”二字
+    document.getElementById('analysisResult').textContent = '收到';
+    document.getElementById('resultBox').classList.remove('d-none');
+
+    setTimeout(async() => {
+        // Encode the text to be used in the URL
+        
+        
+        try {
+            const encodedText = encodeURIComponent(text);
+            window.location.href = `result2.html?text=${encodedText}`;
+            const response = await fetch('/receive_text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const result = await response.json();
+            console.log(result);
+
+            // Redirect to result.html with the processed text as a URL parameter
+            
+            //window.location.href = `result.html?text=${encodeURIComponent(result.processed_text)}`;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }, 1000); // 1秒
+
+    });
+
+    // Initialize stars and meteors
+    createStars();
+    setInterval(createMeteors, 5000);
+</script>
+
+</body>
+</html>
