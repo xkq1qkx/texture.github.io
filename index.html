@@ -149,7 +149,7 @@
     //const use = require('./bert-text-similarity/node_modules/@tensorflow-models/universal-sentence-encoder');
     async function getAverageEmbedding(articles) {
         const model = await use.load();
-        const embeddings = await model.embed([articles]);
+        const embeddings = await model.embed(articles);
         //const meanEmbedding = embeddings.mean(0);
         return embeddings;
     }
@@ -178,7 +178,7 @@
         // Fetch data from local JSON file
         const data = await fetchWriterData();
         // You want to compare this text
-        const text = document.getElementById('inputText').value;
+        const text = [document.getElementById('inputText').value];
         // Get the embedding for the target text
         const ask_embed = await getAverageEmbedding(text);
         let k = 4; // Number of writers in the dataset
@@ -187,7 +187,7 @@
             let tim_max=0;
             const writer = data[i];
             for(let j=0;j<writer.articles.length;j++){
-                let embed = await getAverageEmbedding(writer.articles[j]);
+                let embed = await getAverageEmbedding([writer.articles[j]]);
                 let similar = cosineSimilarity(embed, ask_embed);
                 if(similar>tim_max){
                     tim_max=similar;
