@@ -184,10 +184,16 @@
         let k = 4; // Number of writers in the dataset
         let ans = new Array(k).fill(0);
         for (let i = 0; i < k; i++) {
+            let tim_max=0;
             const writer = data[i];
-            const embed = await getAverageEmbedding(writer.articles);
-            const similar = cosineSimilarity(embed, ask_embed);
-            ans[i] = similar;
+            for(let j=0;j<writer.articles.length;j++){
+                let embed = await getAverageEmbedding(writer.articles[j]);
+                let similar = cosineSimilarity(embed, ask_embed);
+                if(similar>tim_max){
+                    tim_max=similar;
+                }
+            }
+            ans[i] = tim_max;
         }
         const maxIndex = ans.indexOf(Math.max(...ans));
         window.location.href = `result2.html?id=${maxIndex}&acc=${ans[Number(maxIndex)]}`;
