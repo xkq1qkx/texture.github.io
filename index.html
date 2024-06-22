@@ -149,7 +149,7 @@
     //const use = require('./bert-text-similarity/node_modules/@tensorflow-models/universal-sentence-encoder');
     async function getAverageEmbedding(articles) {
         const model = await use.load();
-        const embeddings = await model.embed(articles);
+        const embeddings = await model.embed([articles]);
         //const meanEmbedding = embeddings.mean(0);
         return embeddings;
     }
@@ -186,9 +186,9 @@
         for (let i = 0; i < k; i++) {
             let tim_max=0;
             const writer = data[i];
-            let embed = await getAverageEmbedding(writer.articles);
             for(let j=0;j<writer.articles.length;j++){
-                let similar = cosineSimilarity(embed[j], ask_embed);
+                let embed = await getAverageEmbedding(writer.articles[j]);
+                let similar = cosineSimilarity(embed, ask_embed);
                 if(similar>tim_max){
                     tim_max=similar;
                 }
