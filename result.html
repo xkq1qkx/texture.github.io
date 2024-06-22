@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+</head>
+<body>
+    <h1>Submitted Text</h1>
+    <p id="submittedText"></p>
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Get the text parameter from the URL
+        const submittedText = getQueryParam('text');
+        
+        // Decode the text and display it on the page
+        document.getElementById('submittedText').textContent = decodeURIComponent(submittedText);
+    </script>
+</body>
+</html>
