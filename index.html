@@ -178,7 +178,7 @@
         // Fetch data from local JSON file
         const data = await fetchWriterData();
         // You want to compare this text
-        const text = [document.getElementById('inputText').value];
+        const text = document.getElementById('inputText').value;
         // Get the embedding for the target text
         const ask_embed = await getAverageEmbedding(text);
         let k = 4; // Number of writers in the dataset
