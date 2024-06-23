@@ -201,7 +201,7 @@
         // Wait for all promises to complete
         await Promise.all(promises);
         const maxIndex = ans.indexOf(Math.max(...ans));
-        window.location.href = `222.html?id=${maxIndex}&acc=${ans[Number(maxIndex)]}`;
+        window.location.href = `result2.html?id=${maxIndex}&acc=${ans[Number(maxIndex)]}`;
     }
 
     document.getElementById('analyzeForm').addEventListener('submit',handlesubmit)// {
