@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,139,1) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgb(43, 43, 55) 100%);
             overflow: hidden;
             z-index: -1;
             animation: spin 20s linear infinite;
@@ -48,9 +48,9 @@
 
         .firework {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: red;
+            width: 9px;
+            height: 9px;
+            background: rgb(136, 12, 12);
             border-radius: 50%;
             opacity: 0;
             animation: launch 2s ease-out;
@@ -70,9 +70,9 @@
 
         .explosion {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: red;
+            width: 6px;
+            height: 6px;
+            background: rgb(236, 64, 64);
             border-radius: 50%;
             animation: burst 2s ease-out;
             z-index: 1; /* Ensure the firework and explosion are on top */
@@ -157,11 +157,72 @@
             line-height: 1.6;
             margin-bottom: 10px;
         }
-        button {
-        margin: 10px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
+        .cartoon-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            color: #fff;
+            background-color: #271459; /* 按钮背景颜色 */
+            border: none;
+            border-radius: 20px; /* 使按钮四个角变弧形 */
+            box-shadow: 0 4px #472297;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cartoon-button:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .cartoon-button:hover {
+            background-color: #ff5252;
+            box-shadow: 0 4px #c0392b;
+        }
+
+        .cartoon-button:hover:before {
+            top: -20%;
+            left: -20%;
+        }
+
+        .cartoon-button:active {
+            box-shadow: 0 2px #c0392b;
+            transform: translateY(2px);
+        }
+
+        .cartoon-button span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cartoon-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            vertical-align: middle;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .navigate-button-icon {
+            background-image: url('https://example.com/navigate-icon.png'); /* 替换为实际的图片URL */
+        }
+
+        .open-new-page-button-icon {
+            background-image: url('https://example.com/open-icon.png'); /* 替换为实际的图片URL */
         }
     </style>
 </head>
@@ -169,8 +230,14 @@
 
 <div class="starry-background" id="starryBackground"></div>
 <div class="modal">
-    <button id="navigateButton">再测一次</button>
-    <button id="openNewPageButton">想了解更多ta的事~</button>
+    <button id="navigateButton" class="cartoon-button">
+        <span class="cartoon-icon navigate-button-icon"></span>
+        <span>再测一次</span> 
+    </button>
+    <button id="openNewPageButton" class="cartoon-button">
+        <span class="cartoon-icon open-new-page-button-icon"></span>
+        <span>想了解更多ta~</span>
+    </button>
     <div id="title">你的文风比较像：</div>
     <h2 id="writer-name">Writer Name</h2>
     <div id="title">和ta的相似度为：</div>
