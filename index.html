@@ -194,7 +194,7 @@
                 const embed = await getAverageEmbedding(writer.articles);
                 const similar = cosineSimilarity(embed, ask_embed);
                 ans[index] = similar;
-                analysisResultElement.textContent += '快了快了，马上！ ';
+                analysisResultElement.textContent += '这次是真的！马上就好... ';
             })(i));
         }
 
