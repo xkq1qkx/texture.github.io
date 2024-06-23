@@ -7,5 +7,8 @@
 ### 2.匹配算法
 使用了自然语言处理技术，自己到建了一个有4个作家的数据集
 使用encoder把用户输入的文字嵌入到向量空间中，与数据集中作家的进行比对
+这里使用了下面两个库
+@tensorflow/tfjs">
+@tensorflow-models/universal-sentence-encoder">
 向量夹角最小的就是最佳匹配作家
 ### 3.报告界面
