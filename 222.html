@@ -243,7 +243,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const submittedid = urlParams.get('id');
             console.log(submittedid);
-            const acc_ans = Number(urlParams.get('acc')).*1e5%10/1000+'%';
+            const acc_ans = Math.floor(Number(urlParams.get('acc'))*10000) / 100 + '%';
             console.log(acc_ans);
             //const acc_ans = 100;
             //const submittedid = 1
