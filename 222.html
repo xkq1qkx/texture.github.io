@@ -157,12 +157,20 @@
             line-height: 1.6;
             margin-bottom: 10px;
         }
+        button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
 <div class="starry-background" id="starryBackground"></div>
 <div class="modal">
+    <button id="navigateButton">再测一次</button>
+    <button id="openNewPageButton">想了解更多ta的事~</button>
     <div id="title">你的文风比较像：</div>
     <h2 id="writer-name">Writer Name</h2>
     <div id="title">和ta的相似度为：</div>
@@ -261,6 +269,17 @@
             document.getElementById("writer-name").textContent = writer.name;
             document.getElementById("percentage").textContent = acc_ans;
             
+            const navigateButton = document.getElementById('navigateButton');
+            const openNewPageButton = document.getElementById('openNewPageButton');
+
+            navigateButton.addEventListener('click', function() {
+                window.location.href = `index.html`;
+            });
+            openNewPageButton.addEventListener('click', function() {
+                // 搜索的字符串
+                let searchString = writer.name;
+                window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(searchString)}`, '_blank');
+            });
             // Populate writer photo and introduction
             const photoContainer = document.getElementById("whiter-photo");
             let img = document.createElement("img");
