@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const submittedid = urlParams.get('id');
-        const acc_ans = urlParams.get('acc');
+        const acc_ans = urlParams.get('acc_num');
 
         const response = await fetch('./writerdata.json');
         if (!response.ok) {
