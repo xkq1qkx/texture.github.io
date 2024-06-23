@@ -90,7 +90,7 @@
 
 <div class="container">
     <div class="text-center mb-5">
-        <h1 class="artistic">文风测评网站 V1.0</h1>
+        <h1 class="artistic">琦麟文风测评网站 V2.0</h1>
         <p>输入大作，看看与哪位作家最像</p>
     </div>
     
@@ -109,7 +109,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div id="resultBox" class="result-box d-none">
-                <h2>分析结果</h2>
+                <h2>嘿嘿，有点慢，但是慢工出细活嘛</h2>
                 <p id="analysisResult"></p>
             </div>
         </div>
@@ -172,7 +172,7 @@
 
     async function handlesubmit(event) {
         event.preventDefault();
-        document.getElementById('analysisResult').textContent = '琦麟收到，分析中...请耐心等待1分钟';
+        document.getElementById('analysisResult').textContent = '琦麟收到，正在拼命分析中！...请耐心等待1-5分钟';
         document.getElementById('resultBox').classList.remove('d-none');
 
         // Fetch data from local JSON file
@@ -189,6 +189,7 @@
             let embed = await getAverageEmbedding(writer.articles);
             let similar = cosineSimilarity(embed, ask_embed);
             ans[i] = similar;
+            document.getElementById('analysisResult').textContent+='ii ';
         }
         const maxIndex = ans.indexOf(Math.max(...ans));
         window.location.href = `result2.html?id=${maxIndex}&acc_num=${ans[Number(maxIndex)]}`;
