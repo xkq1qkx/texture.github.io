@@ -172,7 +172,7 @@
 
     async function handlesubmit(event) {
         event.preventDefault();
-        document.getElementById('analysisResult').textContent = '琦麟收到，正在拼命分析中！...请耐心等待1-5分钟';
+        document.getElementById('analysisResult').textContent ='琦麟收到,正在拼命分析中！...请耐心等待1分钟';
         document.getElementById('resultBox').classList.remove('d-none');
 
         // Fetch data from local JSON file
@@ -183,16 +183,25 @@
         const ask_embed = await getAverageEmbedding(text);
         let k = 4; // Number of writers in the dataset
         let ans = new Array(k).fill(0);
+        const analysisResultElement = document.getElementById('analysisResult');
+
+        // Create an array of promises
+        const promises = [];
+
         for (let i = 0; i < k; i++) {
-            let tim_max=0;
-            const writer = data[i];
-            let embed = await getAverageEmbedding(writer.articles);
-            let similar = cosineSimilarity(embed, ask_embed);
-            ans[i] = similar;
-            document.getElementById('analysisResult').textContent+='ii ';
+            promises.push((async (index) => {
+                const writer = data[index];
+                const embed = await getAverageEmbedding(writer.articles);
+                const similar = cosineSimilarity(embed, ask_embed);
+                ans[index] = similar;
+                analysisResultElement.textContent += 'ii ';
+            })(i));
         }
+
+        // Wait for all promises to complete
+        await Promise.all(promises);
         const maxIndex = ans.indexOf(Math.max(...ans));
-        window.location.href = `result2.html?id=${maxIndex}&acc_num=${ans[Number(maxIndex)]}`;
+        window.location.href = `result2.html?id=${maxIndex}&acc=${ans[Number(maxIndex)]}`;
     }
 
     document.getElementById('analyzeForm').addEventListener('submit',handlesubmit)// {
