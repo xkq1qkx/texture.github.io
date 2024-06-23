@@ -241,8 +241,8 @@
     document.addEventListener("DOMContentLoaded", async function() {
         try {
             const urlParams = new URLSearchParams(window.location.search);
-            const submittedid = urlParams.get('id');
-            const acc_ans = urlParams.get('acc_num').toFixed(4)*100+'%';
+            const submittedid = Number(urlParams.get('id'));
+            const acc_ans = Number(urlParams.get('acc')).toFixed(4)*100+'%';
             //const submittedid = 1
             //const submittedid = 0;
             //const acc_ans = 1;
